@@ -1,0 +1,17 @@
+{
+  "name": "grannygoals",
+  "version": "1.0.0",
+  "description": "",
+  "main": "overlay.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@streamerbot/client": "1.12.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BlackholeDevice/GrannyGoals.git"
+  },
+  "private": true
+}

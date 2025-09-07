@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="overlay.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@streamerbot/client/dist/streamerbot-client.js"></script>
+    <script type="text/javascript" src="overlay.js"></script>
+</head>
+<body>
+<div id="overlay-root">
+    <header class="overlay-header">
+        <div class="connection">
+            <span id="conn-dot" class="dot disconnected"></span>
+            <span id="conn-text">Disconnected</span>
+        </div>
+    </header>
+
+    <main id="goals-list" class="goals-list" aria-live="polite"></main>
+</div>
+</body>
+</html>
