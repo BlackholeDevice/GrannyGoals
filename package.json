@@ -4,10 +4,13 @@
   "description": "",
   "main": "overlay.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "bun build ./overlay.html --outdir dist",
+    "serve": "bun overlay.html"
   },
-  "devDependencies": {
-    "@streamerbot/client": "1.12.2"
+  "dependencies": {
+    "@streamerbot/client": "1.12.2",
+    "jquery": "^3.7.1"
   },
   "repository": {
     "type": "git",

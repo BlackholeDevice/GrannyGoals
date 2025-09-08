@@ -1,4 +1,5 @@
 import {StreamerbotClient} from "@streamerbot/client";
+import $ from 'jquery';
 
 // noinspection JSCheckFunctionSignatures
 class DemoStreamerbotClient extends StreamerbotClient {
@@ -39,10 +40,8 @@ class DemoStreamerbotClient extends StreamerbotClient {
 
 }
 
-
 const goalKey = /^goal-/;
-const $ = window.jQuery || window.$;
-let Client = window.StreamerbotClient;
+let Client = StreamerbotClient;
 
 let $connDot;
 let $connText;
@@ -97,7 +96,7 @@ function renderGoal(goal) {
     const {id, title, current = 0, target = 100, unit = '', color, complete} = goal;
     const pct = target > 0 ? clamp(sanitizeNumber(current) / sanitizeNumber(target), 0, 1) : 0;
 
-    const $root = $('<section>', {class: 'goal'}).attr('data-goal-id', id);
+    const $root = $('<section>', {class: 'goal'}).data('goal-id', id);
 
     const $header = $('<div>', {class: 'goal-header'});
 
@@ -165,18 +164,18 @@ function clearGoals() {
 function initGoals(globals) {
     let goals = Object.entries(globals.variables)
         .filter(([k]) => goalKey.test(k))
-        .map(([k, v]) => [k.split('-').slice(1), v])
+        .map(([k, {value}]) => [k.split('-').slice(1), value])
         .reduce((acc, [[goal, field], v]) => ({
             ...acc,
             [goal]: {
                 ...(acc[goal] || {}),
-                [field]: v,
+                [field]: Number.parseInt(v, 10) || v,
             },
-        }));
-    console.log(goals);
+        }), {});
+    console.log('goals', goals);
 }
 
-function handleGlobalUpdated({name, value}) {
+function handleGlobalUpdated({event:{type}, data:{name, newValue}}) {
     if(!goalKey.test(name)) {
         return;
     }
@@ -185,7 +184,7 @@ function handleGlobalUpdated({name, value}) {
     if (!goalData) {
         console.warn(`Goal ${goal} not found`);
     }
-    goalData[field] = value;
+    goalData[field] = newValue;
     upsertGoal(goalData);
 }
 
