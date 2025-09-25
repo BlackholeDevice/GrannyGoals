@@ -1,0 +1,27 @@
+name: goals-overlay-pages
+on:
+  - push
+jobs:
+  bun-build:
+    name: bun-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v5
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Bun Install
+        run: bun install
+      - name: Run Bun Build
+        run: bun run build
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./dist/
+          destination: ./_site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+
+  
