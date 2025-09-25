@@ -1,0 +1,14 @@
+﻿<section class="goal" data-goal-id="<%- id %>">
+    <div class="goal-header">
+        <div class="goal-title"><%- title || 'Untitled Goal' %></div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar"
+             style="width:<%- percent %>%;background:<% if (color) { %><%- color %><% } else { %> linear-gradient(90deg, <%- colorStart %>, <%- colorEnd %>);<% } %>;">
+        </div>
+        <div class="progress-details">
+            <span class="progress-detail left"><%- percent %>%</span>
+            <span class="progress-detail right"><%- metaText %></span>
+        </div>
+    </div>
+</section>
