@@ -9,7 +9,7 @@ import {
     isFinite,
     isNumber,
     isBoolean,
-    parseInt,
+    toNumber,
     reduce,
     round,
     sortBy,
@@ -129,10 +129,16 @@ function initGoals(globals) {
     applyGoals(goals);
 }
 
+
+function roundTo(value, places = 0) {
+    const multiplier = Math.pow(10, places);
+    return Math.round(value * multiplier) / multiplier;
+}
+
 function parseValue(value) {
-    let v = parseInt(10, value);
+    let v = toNumber(value);
     if (isFinite(v)) {
-        return v;
+        return roundTo(v, 2);
     }
     v = parseBoolean(value);
     if (isBoolean(v)) {
@@ -142,7 +148,6 @@ function parseValue(value) {
 }
 
 function parseBoolean(value) {
-    debugger;
     const normal = `${value}`.toLowerCase().trim();
     switch (normal) {
         case 'true':
@@ -171,7 +176,6 @@ function handleGlobalUpdated(global) {
     const {goal, field} = parseVariableName(name);
     const goalData = state.goals.get(goal) || {id: goal};
     goalData[field] = parseValue(newValue ?? value);
-    debugger;
     upsertGoal(goalData);
     renderGoals();
 }
